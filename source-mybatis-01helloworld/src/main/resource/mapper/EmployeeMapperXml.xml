@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjy.mybatis.dao.EmployeeMapper">
+
+<!-- <resultMap type="com.cjy.mybatis.entity.Employee" id="baseMap">
+		<id column="id" property="id" />
+		<result column="user_name" property="userName" />
+		<result column="gender" property="gender" />
+		<result column="email" property="email" />
+</resultMap> -->
+
+<!-- 
+<parameterMap type="com.cjy.mybatis.entity.Employee" id="parameMap">
+		<parameter property="userName" resultMap="baseMap"/>
+		<parameter property="gender" resultMap="baseMap"/>
+		<parameter property="email" resultMap="baseMap"/>
+		<parameter property="hobbys" resultMap="baseMap"/>
+</parameterMap>
+ -->
+  <select id="selectEmp" resultType="com.cjy.mybatis.entity.Employee" parameterType="int">
+    select id,user_name userName,gender,email from employee where id = #{id}
+  </select>
+  
+  <insert id="saveEmpOne" parameterType="com.cjy.mybatis.entity.Employee" >
+  <!-- or parameterMap="parameMap" -->
+      INSERT INTO employee(user_name,gender,email) 
+      VALUES(#{userName},#{gender},#{email})
+      <!--数据插入前：对hobbys做数据格式转换。  -->
+  </insert>
+  
+</mapper>
