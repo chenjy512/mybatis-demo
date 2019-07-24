@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--测试数据库连接1  -->
+  <properties>
+  		<property name="driver" value="com.mysql.jdbc.Driver"/>
+  		<property name="url" value="jdbc:mysql://hadoop202:3306/hymc"/>
+  		<property name="username" value="root"/>
+  		<property name="password" value="root"/>
+  </properties>
+  
+  <settings>
+  			<setting name="mapUnderscoreToCamelCase" value="true"/>
+  </settings>
+  
+  <typeHandlers>
+         <!-- <typeHandler javaType="list" jdbcType="VARCHAR" handler="com.cjy.mybatis.typehandler.ListTypeHandler"/>
+         <typeHandler javaType="Date" jdbcType="VARCHAR" handler="com.cjy.mybatis.typehandler.MyDateTypeHandler"/> -->
+         <package name="com.cjy.mybatis.typehandler"/>
+  </typeHandlers>
+<!--   <properties resource=""/>
+  <properties url=""/> -->
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+<!--    测试数据库连接1
+		<property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://hadoop202:3306/hymc"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/> -->
+      </dataSource>
+    </environment>
+  </environments>
+  <!-- 将我们写好的sql映射文件注册到全局配置文件中 -->
+  <mappers>
+      <!-- xml映射配置方式 -->
+    <mapper resource="mapper/EmployeeMapperXml.xml"/>
+  </mappers>
+  
+  
+</configuration>
