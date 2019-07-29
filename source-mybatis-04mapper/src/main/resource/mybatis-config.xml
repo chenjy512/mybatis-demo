@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--一、数据源配置  -->
+<!--测试数据库连接2  -->
+<!--   <properties >
+  		<property name="driver" value="com.mysql.jdbc.Driver"/>
+  		<property name="url" value="jdbc:mysql://hadoop202:3306/hymc"/>
+  		<property name="username" value="root"/>
+  		<property name="password" value="root"/>
+  </properties> -->
+  <!--   <properties resource=""/>
+  <properties url=""/> -->
+  <properties resource="jdbc.properties"/>
+  
+  <!--二、设置信息  -->
+  <settings>
+  			<!--字段映射规则： user_name = userName  -->
+  			<setting name="mapUnderscoreToCamelCase" value="true"/>
+  			<!--打印sql日志  -->
+  			<setting name="logPrefix" value="mybatis.sql."/> 
+  </settings>
+  
+  <!--三、别名配置 ：
+  		   注意： 切记使用默认别名的情况下不同包下的相同类名的类会使用同一个别名-->
+  <typeAliases>
+  			<!--配置方式一  -->
+  			<!--alias： alias属性不赋值，默认是类名首字母小写 -->
+  			<!-- <typeAlias type="com.cjy.mybatis.entity.Employee"/> -->
+  			<!-- <typeAlias type="com.cjy.mybatis.entity.Employee" alias="employee"/> -->
+  			
+  			<!--配置方式二：结合注解，扫描当前包下面的 @Alias 注解  -->
+  			<package name="com.cjy.mybatis.entity"/>
+  </typeAliases>
+  
+  <!--四、typeHandlers  -->
+  <typeHandlers>
+         <!-- <typeHandler javaType="list" jdbcType="VARCHAR" handler="com.cjy.mybatis.typehandler.ListTypeHandler"/>
+         <typeHandler javaType="Date" jdbcType="VARCHAR" handler="com.cjy.mybatis.typehandler.MyDateTypeHandler"/> -->
+         <package name="com.cjy.mybatis.typehandler"/>
+  </typeHandlers>
+  
+  <!--五、objectFactory：构建结果返回值时使用，就是查询结果封装成对象时所使用的。
+     	 默认：org.apache.ibatis.reflection.factory.DefaultObjectFactory
+       	 选择：可以自定义-->
+  <objectFactory type="com.cjy.mybatis.objectFacotry.MyObjectFactory">
+  			<property name="name" value="MyObjectFactory"/>
+  </objectFactory>
+  
+  
+  <!--六、环境配置  -->
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"> <!--事务管理  -->
+      	<property name="autoCommit" value="false"/>
+     </transactionManager>
+      <dataSource type="POOLED">	   <!--连接方式  -->
+      <!-- 使用配置-->
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+<!--    测试数据库连接2
+		<property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://hadoop202:3306/hymc"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/> -->
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <!-- 数据库厂商标识
+  <databaseIdProvider type=""/> -->
+  
+  <!--七、sql映射器 -->
+  <mappers> 
+  <!--
+  下面就是四种引入映射器的四种方式：
+  	①resource ： 直接引入类路径下的文件，一般使用这种方式会将sql文件放置在resource 路径下（常用）
+  	②class：接口名与映射文件必须同名（必须）并且放在同一路径下；如果没有映射文件，sql语句使用注解的方式就需要注册接口
+  	③package：使用批量注册，  接口和映射文件必须同名，而且放在同一个路径里  
+  	④url：引用网络上或磁盘路径下文件
+    -->
+    <package name="com.cjy.mybatis.dao"/>
+	<!--  
+ 	<mapper url="file:///D:\workspace2014\source-mybatis\src\main\java\com\cjy\mybatis\dao\EmployeeMapper.xml"/>
+    <mapper resource="com/cjy/mybatis/dao/EmployeeMapper.xml"/>
+	<mapper class="com.cjy.mybatis.dao.EmployeeMapper"/>
+    
+   -->
+   
+  </mappers>
+  
+  
+</configuration>

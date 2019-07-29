@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjy.mybatis.dao.EmployeeMapper">
+
+<resultMap type="com.cjy.mybatis.entity.Employee" id="baseMap">
+		<id column="id" property="id" />
+		<result column="user_name" property="userName" />
+		<result column="gender" property="gender" />
+		<result column="email" property="email" />
+		<result column="createtime" property="createtime" javaType="date" jdbcType="VARCHAR"
+		typeHandler="com.cjy.mybatis.typehandler.MyDateTypeHandler"/>
+		<result column="hobbys" property="hobbys" typeHandler="com.cjy.mybatis.typehandler.ListTypeHandler"/>
+</resultMap>
+
+<!-- 
+<parameterMap type="com.cjy.mybatis.entity.Employee" id="parameMap">
+		<parameter property="userName" resultMap="baseMap"/>
+		<parameter property="gender" resultMap="baseMap"/>
+		<parameter property="email" resultMap="baseMap"/>
+		<parameter property="hobbys" resultMap="baseMap"/>
+</parameterMap>
+ -->
+ 
+ <!--int：为系统默认别名
+ 	 employee ： 自定义别名  -->
+  <select id="selectEmp" resultMap="baseMap" parameterType="int">
+    select id,user_name userName,gender,email,hobbys,createtime from employee where id = #{id}
+  </select>
+  
+  <insert id="saveEmpOne" parameterType="com.cjy.mybatis.entity.Employee" >
+  <!-- or parameterMap="parameMap" -->
+      INSERT INTO employee(user_name,gender,email,createtime,hobbys) 
+      VALUES(#{userName},#{gender},#{email},#{createtime,typeHandler=com.cjy.mybatis.typehandler.MyDateTypeHandler},
+      #{hobbys,typeHandler=com.cjy.mybatis.typehandler.ListTypeHandler})
+      <!--数据插入前：对hobbys做数据格式转换。  -->
+  </insert>
+  
+</mapper>

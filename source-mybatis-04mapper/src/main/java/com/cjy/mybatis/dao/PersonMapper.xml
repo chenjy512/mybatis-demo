@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjy.mybatis.dao.PersonMapper">
+
+		<!--1. resultMap：返回值类型定义，主要使用标签id与result，其实还有很多标签可以使用
+		 如：constructor、association...-->
+		<resultMap type="person" id="baseResult">
+			<id column="id" property="id"/>
+			<result column="user_name" property="userName"/>
+			<result column="marker" property="marker"/>
+		</resultMap>
+		
+		<!--2. sql 抽取公共部分  -->
+		<sql id="baseColumns">
+			id,user_name,marker
+		</sql>
+		
+		<!--3. select 主要属性：不常使用的就不介绍了。
+					1. id 与接口方法名一直
+					2. resultType/resultMap查询结果返回值类型，map的方式比type灵活一些，但是需要自己手动匹配一些规则
+					3. parameterType 参数类型
+					4. parameterMap  参数类型，不常用
+					5. 还有一些关联集合查询，这里不做介绍
+		  -->
+		  <!--3.1 单个参数查询  -->
+		 <select id="queryPersonById" resultType="person" parameterType="int" >
+		 		select <include refid="baseColumns"/>
+		 		from person where id = #{id}
+		 </select>
+		 <!--3.2 多个参数  -->
+		 <select id="queryPersonByIdAndLikeNames" resultMap="baseResult" >
+		 		select <include refid="baseColumns"/>
+		 		from person where id = #{id} and user_name like '%' || #{userName}
+		 </select>
+		 <!--3.3 多个参数，map集合方式  -->
+ 		 <select id="queryPersonByIdAndLikeNamesToMap" resultType="person" parameterType="map">
+		 		select <include refid="baseColumns"/>
+		 		from person where id = #{id} and user_name like '%' || #{userName}
+		 </select> 
+		 <!--3.4 多个参数，vo对象参数-常用  -->
+ 		 <select id="queryPersonByIdAndLikeNamesToVo" resultType="person" parameterType="person">
+		 		select <include refid="baseColumns"/>
+		 		from person where id = #{id} and user_name like '%' || #{userName}
+		 </select> 
+		 
+		 
+		 <!--4.insert数据新增，参数也可以如上面用map或者多个参数，只要与插入的列对应就行，这里就不在举例  -->
+			 	<!--4.1 新增数据  -->
+		 <insert id="savePersonInfo" parameterType="person">
+		 		insert into person(user_name,marker) values(#{userName},#{marker})
+		 </insert>
+		 		<!--4.2 新增数据，并将主键返回 
+		 		keyProperty：哪个是主键字段
+		 		useGeneratedKeys：这个主键是否使用数据库生成策略
+		 		 -->
+		 <insert id="savePersonInfoLoadKey" parameterType="person"  useGeneratedKeys="true" keyProperty="id">
+		 		insert into person(user_name,marker) values(#{userName},#{marker})
+		 </insert>
+		 		<!--4.3 新增数据，自定义主键生成策略  -->
+		 <insert id="savePersonInfoCreateAndLoadKey" parameterType="person"  useGeneratedKeys="true" keyProperty="id">
+		 		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+		 			select if(max(id) is null , 1 ,max(id)+2) as newId from person
+		 		</selectKey>
+		 		insert into person(id,user_name,marker) values(#{id},#{userName},#{marker})
+		 </insert>
+		 
+		 
+		 <!--5.update 修改数据   -->
+		 <update id="updatePersonInfoById" parameterType="person">
+		  		update person set user_name=#{userName} , marker = #{marker} where id=#{id}
+		 </update>
+		 
+		 <!--6. delete 移除数据  -->
+		 <delete id="removePersonInfoById" parameterType="int">
+		 		delete from person where id=#{id}
+		 </delete>
+		 
+		 <!--7. 参数配置，一个参数的完整写法是：参数值、jdbcType、javaType、typeHandler
+		 	如：#{id,javaType=int,jdbcType=NUMERIC,typeHandler=xxxTypeHandler}
+		   -->
+		   
+		 <!--8. cache开启二级缓存  -->
+		 <cache/>
+		 
+</mapper>
