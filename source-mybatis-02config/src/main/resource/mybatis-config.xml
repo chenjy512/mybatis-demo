@@ -76,12 +76,20 @@
   <databaseIdProvider type=""/> -->
   
   <!--七、sql映射器 -->
-  <mappers>  
+  <mappers> 
+  <!--
+  下面就是四种引入映射器的四种方式：
+  	①resource ： 直接引入类路径下的文件，一般使用这种方式会将sql文件放置在resource 路径下（常用）
+  	②class：接口名与映射文件必须同名（必须）并且放在同一路径下；如果没有映射文件，sql语句使用注解的方式就需要注册接口
+  	③package：使用批量注册，  接口和映射文件必须同名，而且放在同一个路径里  
+  	④url：引用网络上或磁盘路径下文件
+    -->
+ 	<mapper url="file:///D:\workspace2014\source-mybatis\src\main\java\com\cjy\mybatis\dao\EmployeeMapper.xml"/>
+	<!--  
+    <mapper resource="com/cjy/mybatis/dao/EmployeeMapper.xml"/>
+	<mapper class="com.cjy.mybatis.dao.EmployeeMapper"/>
     <package name="com.cjy.mybatis.dao"/>
-   <!--<mapper resource="mapper/EmployeeMapperXml.xml"/>  
-       <mapper class="com.cjy.mybatis.dao.EmployeeMapper"/>
-  <mapper url="file:///var/mappers/mapper/EmployeeMapperXml.xml"/> -->
-    <!--   -->
+   -->
   </mappers>
   
   
