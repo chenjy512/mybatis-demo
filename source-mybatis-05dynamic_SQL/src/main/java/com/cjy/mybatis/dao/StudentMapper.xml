@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cjy.mybatis.dao.StudentMapper">
+
+		<!--1. if 判断是否符合条件，一个sql中可以使用多个if判断  -->
+		<select id="queryStudentAll" parameterType="student" resultType="student">
+			select * from student
+			where 1=1
+			<!--每个if判断一个参数值，符合条件的则拼装sql  -->
+			<if test="stuName != null and stuName != ''">
+				and stu_name = #{stuName}
+			</if>
+			<if test="age != null">
+					and age > #{age}
+			</if>
+		</select>
+  		
+  		<!--2. choose when otherwise
+  			       类似于： switch case defaule
+  			      从上至下选择最早满足的条件，只选择一个条件
+  		 -->
+  		<select id="queryStudentChoose" parameterType="student" resultType="student">
+  					select * from student where 1=1
+  					<choose>
+  						<when test="grade != null and grade != ''">
+  							and grade = #{grade}
+  						</when>
+  						<when test="email != null and email != '' ">
+  						    and email like '%${email}%'
+  						</when>
+  						<otherwise>
+  							and id > 2	<!--当所有条件不满足时，走此默认条件  -->
+  						</otherwise>
+  					</choose>
+  		</select>
+  		
+  		<!--3. where：如上语句不想在后面加上 where 1=1 ，则使用下面写法，where/trim  -->
+  		<select id="queryStudentWhere" parameterType="student" resultType="student">
+			select * from student 
+			<where>
+					<if test="email != null and email != ''">
+						 and email like '%${email}%'
+					</if>
+					<if test="grade != null and grade != ''">
+  							and grade = #{grade}
+  					</if>
+			</where>
+		</select>
+		
+		<!--4. trim 效果与 where类似
+			prefix 前缀
+			prefixOverrides 假如条件第一个词满足则清除
+				如下两个条件都满足时： and email like '%${email}%' and grade = #{grade}，第一个词and符合条件-清除
+		  -->
+  		<select id="queryStudentTrim" parameterType="student" resultType="student">
+			select * from student 
+			<trim prefix="where" prefixOverrides="and" >
+					<if test="email != null and email != ''">
+						 and email like '%${email}%'
+					</if>
+<!-- 					<if test="email != null and email != ''">
+						 and email like concat('%' ,#{email} ,'%')
+					</if> -->
+					<if test="grade != null and grade != ''">
+  						 and grade = #{grade}
+  					</if>
+			</trim>
+		</select>
+		
+		<!--5. set：修改数据，在hibernate中修改数据会把每个字段都更新，比较笨重，mybatis就比较轻量，判断符合条件的字段才会更新。  -->
+		<update id="updateStudentInfo" parameterType="student" >
+				update student
+				<set>
+						<if test="stuName != null and stuName != ''">
+								stu_name=#{stuName},
+						</if>
+						<if test="age != null">
+								age=#{age},
+						</if>
+						<if test="email != null and email != ''">
+								email=#{email},
+						</if>
+						<if test="grade != null and grade != ''">
+								grade=#{grade}
+						</if>
+				</set>
+				where id=#{id}
+		</update>
+		
+		<!-- <update id="">
+				update student
+				<trim prefix="set" suffixOverrides=",">
+						<if test="stuName != null and stuName != ''">
+								stu_name=#{stuName},
+						</if>
+						<if test="age != null">
+								age=#{age},
+						</if>
+						<if test="email != null and email != ''">
+								email=#{email},
+						</if>
+						<if test="grade != null and grade != ''">
+								grade=#{grade},
+						</if>
+				</trim>
+					where id=#{id}
+		</update> -->
+		
+		<!--6. foreach: 遍历取出集合中的参数
+					 collection：参数集合名
+					 item ： 遍历后的每个参数
+					 index ：当前参数角标
+					 separator：多个参数间的分割符
+					 open：前缀
+					 close：后缀
+					 #{item}：遍历取出的每个参数值
+				完整遍历后的参数示例：(1,2,3)  ->
+				select * from student where id in (1,2,3)
+		  -->
+		<select id="queryStudentInfoByIn" parameterType="int" resultType="student">
+			select * from student where id in
+			<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+		</select>	
+		
+		<!--7. bind :  -->
+		<select id="queryStudentInfoByBind" parameterType="student" resultType="student">
+			<bind name="pattern" value="'%' + email + '%'"/>
+			select * from student where email like #{pattern}
+		</select>	
+		
+			
+</mapper>
