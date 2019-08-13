@@ -30,7 +30,7 @@
 		<artifactId>mybatis</artifactId>
 		<version>3.4.6</version>
 	</dependency>
-	<!-- 数据库连接 -->
+	<!-- 数据库连接--测试移动工程 -->
 	<dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
@@ -61,6 +61,7 @@
 			<version>1.7.21</version>
 		</dependency>
   </dependencies>
+
 
 
 </project>
