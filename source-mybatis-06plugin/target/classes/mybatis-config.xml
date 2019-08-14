@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties>
+        <property name="jdbc.driver" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbc.url" value="jdbc:mysql://hadoop101:3306/my-study"/>
+        <property name="jdbc.username" value="root"/>
+        <property name="jdbc.password" value="root"/>
+    </properties>
+    <!--二、设置信息  -->
+    <settings>
+        <!--字段映射规则： user_name = userName  -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--打印sql日志  -->
+        <setting name="logPrefix" value="mybatis.sql."/>
+    </settings>
+    
+    <plugins>
+        <!--<plugin interceptor="com.cjy.mybatis.plugin.MyPlugin">-->
+            <!--<property name="dbType" value="mysql"></property>-->
+        <!--</plugin>-->
+        <plugin interceptor="com.cjy.mybatis.plugin.QueryLimitPlugin">
+            <property name="dbType" value="mysql"></property>
+            <property name="limit" value="50"></property>
+        </plugin>
+    </plugins>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 将我们写好的sql映射文件注册到全局配置文件中 -->
+    <mappers>
+        <mapper resource="mapper/EmployeeMapper.xml"></mapper>
+    </mappers>
+
+
+</configuration>
