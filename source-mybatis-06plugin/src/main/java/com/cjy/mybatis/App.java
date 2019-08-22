@@ -42,20 +42,20 @@ public class App
         EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
 
         Random random = new Random();
-//        for (int i=0;i<500;i++){
-//            Employee emp = new Employee();
-//            emp.setAge(random.nextInt(35));
-//            emp.setSex(random.nextInt(2)+"");
-//            String uuid = UUID.randomUUID().toString();
-//            uuid = uuid.substring(0,12);
-//            emp.setUserName(uuid);
-//            emp.setEmail(uuid+"@163.com");
-//            employeeMapper.saveEmp(emp);
-//            System.out.println(emp);
-//        }
+        for (int i=0;i<500;i++){
+            Employee emp = new Employee();
+            emp.setAge(random.nextInt(35));
+            emp.setSex(random.nextInt(2)+"");
+            String uuid = UUID.randomUUID().toString();
+            uuid = uuid.substring(0,12);
+            emp.setUserName(uuid);
+            emp.setEmail(uuid+"@163.com");
+            employeeMapper.saveEmp(emp);
+            System.out.println(emp);
+        }
 //        Employee employee = employeeMapper.queryEmpById(1);
-        List<Employee> allEmps = employeeMapper.findAllEmps();
-        System.out.println(allEmps.size());
+//        List<Employee> allEmps = employeeMapper.findAllEmps();
+//        System.out.println(allEmps.size());
 //        System.out.println(employee);
         sqlSession.commit();
         sqlSession.close();

@@ -6,7 +6,7 @@
 
     <properties>
         <property name="jdbc.driver" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbc.url" value="jdbc:mysql://hadoop101:3306/my-study"/>
+        <property name="jdbc.url" value="jdbc:mysql://hadoop202:3306/hymc"/>
         <property name="jdbc.username" value="root"/>
         <property name="jdbc.password" value="root"/>
     </properties>
@@ -18,15 +18,15 @@
         <setting name="logPrefix" value="mybatis.sql."/>
     </settings>
     
-    <plugins>
-        <!--<plugin interceptor="com.cjy.mybatis.plugin.MyPlugin">-->
-            <!--<property name="dbType" value="mysql"></property>-->
-        <!--</plugin>-->
-        <plugin interceptor="com.cjy.mybatis.plugin.QueryLimitPlugin">
-            <property name="dbType" value="mysql"></property>
-            <property name="limit" value="50"></property>
-        </plugin>
-    </plugins>
+    <!--<plugins>-->
+        <!--&lt;!&ndash;<plugin interceptor="com.cjy.mybatis.plugin.MyPlugin">&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name="dbType" value="mysql"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
+        <!--&lt;!&ndash;<plugin interceptor="com.cjy.mybatis.plugin.QueryLimitPlugin">&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name="dbType" value="mysql"></property>&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name="limit" value="50"></property>&ndash;&gt;-->
+        <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
+    <!--</plugins>-->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>

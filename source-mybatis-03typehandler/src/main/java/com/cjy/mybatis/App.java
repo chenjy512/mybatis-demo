@@ -65,6 +65,7 @@ public class App
         
         try {
 			Employee emp = new Employee(2, "zhaoliu", "1", "zhaoliu@163.com", Arrays.asList(new String[]{"yi","er","san","si"}));
+            emp.setCreatetime(new Date());
 			EmployeeMapper mapper = openSession.getMapper(EmployeeMapper.class);
 			System.out.println("------------");
 			int saveEmpOne = mapper.saveEmpOne(emp);

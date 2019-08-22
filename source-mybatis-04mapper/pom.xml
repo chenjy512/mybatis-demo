@@ -3,10 +3,10 @@
 	
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.cjy.mybatis</groupId>
-  <artifactId>source-mybatis</artifactId>
+  <artifactId>source-mybatis-04mapper</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>source-mybatis</name>
+  <name>source-mybatis-04mapper</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -30,7 +30,7 @@
 		<artifactId>mybatis</artifactId>
 		<version>3.4.6</version>
 	</dependency>
-	<!-- 数据库连接--测试移动工程 -->
+	<!-- 数据库连接==测试移动工程 -->
 	<dependency>
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>

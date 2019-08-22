@@ -165,5 +165,47 @@ Employee [id=10, userName=yanjiu, gender=1, email=yanjiu@163.com, createtime=Wed
 		}
 		 
     }
-    
+
+
+    @Test
+	public void testjk() throws ClassNotFoundException {
+		Class boundType = classForName("com.cjy.mybatis.dao.EmployeeMapper",getClassLoaders(null));
+		System.out.println(boundType);
+		System.out.println(getClassLoaders(null));
+
+	}
+
+	ClassLoader defaultClassLoader;
+	ClassLoader systemClassLoader;
+
+	ClassLoader[] getClassLoaders(ClassLoader classLoader) {
+		return new ClassLoader[]{
+				classLoader,
+				defaultClassLoader,
+				Thread.currentThread().getContextClassLoader(),
+				getClass().getClassLoader(),
+				systemClassLoader};
+	}
+
+	Class<?> classForName(String name, ClassLoader[] classLoader) throws ClassNotFoundException {
+
+		for (ClassLoader cl : classLoader) {
+
+			if (null != cl) {
+
+				try {
+
+					Class<?> c = Class.forName(name, true, cl);
+
+					if (null != c) {
+						return c;
+					}
+				} catch (ClassNotFoundException e) {
+					// we'll ignore this until all classloaders fail to locate the class
+				}
+
+			}
+		 }
+		throw new ClassNotFoundException("Cannot find class: " + name);
+		}
 }

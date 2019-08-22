@@ -40,7 +40,7 @@ public class App
     public void add(){
     	SqlSessionFactory sqlSessionFactory = MySqlSessionFacoty.getSqlSessionFactory();
     	SqlSession openSession = sqlSessionFactory.openSession();
-    	 Employee employee = new Employee(null, "wushi", "1", "wushi@163.com");
+    	 Employee employee = new Employee(null, "wushi", "1", "wushi@16311.com");
 		 EmployeeMapper mapper = openSession.getMapper(EmployeeMapper.class);
 		 int saveEmpOne = mapper.saveEmpOne(employee);
 		 System.out.println(saveEmpOne+"-------------------");

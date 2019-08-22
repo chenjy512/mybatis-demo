@@ -3,10 +3,10 @@
 	
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.cjy.mybatis</groupId>
-  <artifactId>source-mybatis</artifactId>
+  <artifactId>source-mybatis-05dynamic_SQL</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>source-mybatis</name>
+  <name>source-mybatis-05dynamic_SQL</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -21,45 +21,44 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
-      <scope>test</scope>
     </dependency>
-    
+
     <!--mybatis依赖  -->
     <dependency>
-		<groupId>org.mybatis</groupId>
-		<artifactId>mybatis</artifactId>
-		<version>3.4.6</version>
-	</dependency>
-	<!-- 数据库连接 -->
-	<dependency>
-	    <groupId>mysql</groupId>
-	    <artifactId>mysql-connector-java</artifactId>
-	    <version>5.1.38</version>
-	</dependency>
-			<!-- logbck -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>1.1.7</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.1.7</version>
-		</dependency>
-		
-				<!-- slf4j -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.21</version>
-		</dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.4.6</version>
+    </dependency>
+    <!-- 数据库连接 -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.38</version>
+    </dependency>
+    <!-- logbck -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.1.7</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.1.7</version>
+    </dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>log4j-over-slf4j</artifactId>
-			<version>1.7.21</version>
-		</dependency>
+    <!-- slf4j -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.21</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>log4j-over-slf4j</artifactId>
+      <version>1.7.21</version>
+    </dependency>
   </dependencies>
 
 
